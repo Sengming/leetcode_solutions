@@ -5,48 +5,24 @@
 #         self.left = None
 #         self.right = None
 
-class StackElem(object):
-    def __init__(self, x, l_limit, r_limit):
-        self.val = x
-        self.l_limit = l_limit
-        self.r_limit = r_limit
-
-
 class Solution(object):
-
-    def find_new_root(self, branch, preorder):
-        # Find first time an element in branch appears in preorder
-        for c in preorder:
-            if branch.find(c) is not -1:
-                return c
-
-        return -1
-
-
-        return newroot
-
     def buildTree(self, preorder, inorder):
         """
         :type preorder: List[int]
         :type inorder: List[int]
         :rtype: TreeNode
         """
-        # Attempt at iterative solution:
+        if len(inorder) == 0:
+            return None;
 
-        root_stack = []
-        if len(preorder) == 0:
-            return None
-        # Append the first element
-        elem = StackElem(preorder[0], 0, len(preorder))
-        root_stack.append(elem)
-        while len(root_stack) > 0:
-            curr_root = root_stack.pop()
-            inorder_index = inorder.index(curr_root.val)
-            
-            # do left:
-            find_new_root(inorder[curr_root.left:inorder_index], preorder)
-            # do right:
-            find_new_root(inorder[inorder_index:curr_root.right], preorder)
+        root = TreeNode(preorder[0])
+        index = inorder.index(root.val)
+        preorder.remove(root.val)
 
-            
+        left_sub_inorder = inorder[0:index:]
+        root.left = self.buildTree(preorder, left_sub_inorder)
 
+        right_sub_inorder = inorder[index+1::]
+        root.right = self.buildTree(preorder, right_sub_inorder)
+
+        return root
