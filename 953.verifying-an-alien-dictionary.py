@@ -37,3 +37,8 @@ class Solution(object):
                 return False
 
         return True
+
+        """
+        Runtime: 28 ms, faster than 20.48% of Python online submissions for Verifying an Alien Dictionary.
+        Memory Usage: 11.8 MB, less than 72.73% of Python online submissions for Verifying an Alien Dictionary.
+        """
